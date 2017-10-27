@@ -19,6 +19,14 @@
   def attack
     puts "Where would you like to attack?"
     gun = gets.chomp!
+
+    if gun =~ /[a-jA-J]\d/
+      p gun
+    else
+      puts "That didnt make any sense Cap'n! I need a letter then a number"
+      attack
+    end
+
     row = (gun.downcase.split"")[0].to_sym
     column = (gun.split"")[1].to_i
     bullet = @enemy_ships[row][column-1]
@@ -32,12 +40,8 @@
         puts "We've already hit them there Captain"
       when 3
         puts "We didnt hit anything there last time Captain. Are you ok?"
-      else
-        puts "That didnt make any sense. Give me a letter then a number without a space"
-      attack
     end
-
-  end
+end
 
 
 

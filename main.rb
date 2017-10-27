@@ -18,7 +18,7 @@ require 'pry'
   c: [0,0,0,0,0],
   d: [0,0,0,0,0],
   e: [0,0,0,0,0],
-
+}
 
 
 
@@ -81,7 +81,7 @@ def cpu_target type_number
 
 
   @location = [letter, index_arr] 
-
+  @horizontal = true
   if @horizontal
     #we run into risk of overlapping grid horixontally.  We need to check and see if a space is available next to it, and we have sufficient room to place our ship.  If we don't have sufficient space, do not place, and we will get a new location .
     index_arr == 4 ? index_arr -= 1 : index_arr
@@ -89,7 +89,7 @@ def cpu_target type_number
       if @cpu_ships[letter][index_arr].zero? && @cpu_ships[letter][index_arr + 1].zero?
          @cpu_ships[letter][index_arr] = type_number
          @cpu_ships[letter][index_arr + 1] = type_number
-         binding.pry
+         
       end    
   else
     #we run into risk of overlapping grid vertically.  We need to check and see if a space is available next to it, and we have sufficient room to place our ship.  If we don't have sufficient space, do not place, and we will get a new location .
@@ -101,6 +101,7 @@ end
 def boat_placement boat_type = "submarine"
   # case boat_type
   # when "patrol_boat"
+    
     horizontal?
     cpu_target(2)
   # when "submarine"
@@ -130,24 +131,24 @@ end
 
 
 # display grid_data
-display @enemy_ships
+#
 
 def checker
  @hitting.values.include?("x"*3)
 end
 
-display @hitting
+#display @hitting
+boat_placement
+display @cpu_ships
+#display @cpu_ships
 
 
-display @enemy_ships
-
-
-attack
-display @hitting
-attack
-display @hitting
-attack
-display @hitting
-attack
-display @hitting
+ attack
+ display @hitting
+# attack
+# display @hitting
+# attack
+# display @hitting
+# attack
+# display @hitting
 

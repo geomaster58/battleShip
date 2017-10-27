@@ -23,6 +23,7 @@ require 'pry'
   c: [0,0,0,0,0],
   d: [0,0,0,0,0],
   e: [0,0,0,0,0],
+}
 @enemy_ships =
   {
     a: [0,0,0,0,0],
@@ -92,10 +93,25 @@ def cpu_target type_number
          @cpu_ships[letter][index_arr + 1] = type_number
          binding.pry
       end    
-  else
+  else 
+    letter == :e ? letter = :d : letter
+    case letter
+      when :a
+        row_down = :b
+      when :b
+        row_down = :c
+      when :c
+        row_down = :d
+      when :d
+        row_down = :e
+    end
+
+    if @cpu_ships [letter][index_arr].zero? && @cpu_ships[row_down][index_arr].zero?
+      @cpu_ships[letter][index_arr] = type_number
+      @cpu_ships[row_down][index_arr] = type_number
+    end
     #we run into risk of overlapping grid vertically.  We need to check and see if a space is available next to it, and we have sufficient room to place our ship.  If we don't have sufficient space, do not place, and we will get a new location .
   end
-
 end
 
 
@@ -128,11 +144,13 @@ def display grid_data
   puts " \u{2620}" + "  \u{2620}" + "  \u{2620}" + "  \u{2620}" 
 end
 
-
+boat_placement
 # display grid_data
 display @enemy_ships
 
 attack
 
 display @enemy_ships
+
+
 

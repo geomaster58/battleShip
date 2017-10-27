@@ -1,16 +1,27 @@
+
 @enemy_ships =
   {
     a: [0,0,0,0,0],
     b: [0,0,0,0,0],
     c: [0,0,0,0,0],
-    d: [0,0,1,1,1],
+    d: [3,3,3,0,0],
     e: [0,0,0,0,0],
   }
+
 @my_ships =
   {
-    a: [1,0,0,0,0],
-    b: [1,0,0,0,0],
-    c: [1,0,0,0,0],
+    a: [0,0,0,0,0],
+    b: [0,0,0,0,0],
+    c: [0,0,0,0,0],
+    d: [0,0,0,0,0],
+    e: [0,0,0,0,0],
+  }
+
+  @hitting = 
+  {
+    a: [0,0,0,0,0],
+    b: [0,0,0,0,0],
+    c: [0,0,0,0,0],
     d: [0,0,0,0,0],
     e: [0,0,0,0,0],
   }
@@ -23,19 +34,14 @@
     column = (gun.split"")[1].to_i
     bullet = @enemy_ships[row][column-1]
 
-    case bullet
-      when 0
+    
+      if bullet.zero?
         puts "SPLOOSH"
-      when 1
+        @hitting[row][column-1] = "-"
+      else 
         puts "THATS A HIT!"
-      when 2
-        puts "We've already hit them there Captain"
-      when 3
-        puts "We didnt hit anything there last time Captain. Are you ok?"
-      else
-        puts "That didnt make any sense. Give me a letter then a number without a space"
-      attack
-    end
+        @hitting[row][column-1] = "x"
+      end
 
   end
 
@@ -51,8 +57,17 @@ def display grid_data
   puts " \u{2620}" + "  \u{2620}" + "  \u{2620}" + "  \u{2620}" 
 end
 
-display @enemy_ships
+def checker
+ @hitting.values.include?("x"*3)
+end
+
+display @hitting
 
 attack
-
-display @enemy_ships
+display @hitting
+attack
+display @hitting
+attack
+display @hitting
+attack
+display @hitting

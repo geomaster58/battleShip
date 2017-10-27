@@ -1,12 +1,7 @@
+
 require 'pry'
 
-@grid_data = {
-  a: [0,0,0,0,0],
-  b: [0,0,0,0,0],
-  c: [0,0,0,0,0],
-  d: [0,0,0,0,0],
-  e: [0,0,0,0,0],
-  }
+
 
 
 # cpu_ships[:d][0] = 1
@@ -23,19 +18,25 @@ require 'pry'
   c: [0,0,0,0,0],
   d: [0,0,0,0,0],
   e: [0,0,0,0,0],
-@enemy_ships =
+
+
+
+
+
+@my_ships =
   {
     a: [0,0,0,0,0],
     b: [0,0,0,0,0],
     c: [0,0,0,0,0],
-    d: [0,0,1,1,1],
+    d: [0,0,0,0,0],
     e: [0,0,0,0,0],
   }
-@my_ships =
+
+  @hitting = 
   {
-    a: [1,0,0,0,0],
-    b: [1,0,0,0,0],
-    c: [1,0,0,0,0],
+    a: [0,0,0,0,0],
+    b: [0,0,0,0,0],
+    c: [0,0,0,0,0],
     d: [0,0,0,0,0],
     e: [0,0,0,0,0],
   }
@@ -45,28 +46,26 @@ require 'pry'
     puts "Where would you like to attack?"
     gun = gets.chomp!
 
-    if gun =~ /[a-jA-J]\d/
-      p gun
-    else
-      puts "That didnt make any sense Cap'n! I need a letter then a number"
-      attack
-    end
+    
 
     row = (gun.downcase.split"")[0].to_sym
     column = (gun.split"")[1].to_i
-    bullet = @enemy_ships[row][column-1]
+    bullet = @cpu_ships[row][column-1]
 
-    case bullet
-      when 0
+    
+      if bullet.zero?
         puts "SPLOOSH"
-      when 1
+        @hitting[row][column-1] = "-"
+      else 
         puts "THATS A HIT!"
-      when 2
-        puts "We've already hit them there Captain"
-      when 3
-        puts "We didnt hit anything there last time Captain. Are you ok?"
-    end
-end
+
+        @hitting[row][column-1] = "x"
+      end
+
+  end
+
+      
+
 
 
 def horizontal?
@@ -129,10 +128,26 @@ def display grid_data
 end
 
 
+
 # display grid_data
 display @enemy_ships
 
-attack
+def checker
+ @hitting.values.include?("x"*3)
+end
+
+display @hitting
+
 
 display @enemy_ships
+
+
+attack
+display @hitting
+attack
+display @hitting
+attack
+display @hitting
+attack
+display @hitting
 

@@ -41,6 +41,8 @@ require 'pry'
     e: [0,0,0,0,0],
   }
 
+  @checker = true
+
 
   def attack
     puts "Where would you like to attack?"
@@ -133,22 +135,43 @@ end
 # display grid_data
 #
 
-def checker
- @hitting.values.include?("x"*3)
+def checker 
+  length = [] 
+  @hitting.each {|key, arr| arr.each {|x| length << x if x =="x"}}
+
+  length.length == 2 ? @checker= false : @checker = true
 end
 
+
 #display @hitting
-boat_placement
-display @cpu_ships
+# display @cpu_ships
 #display @cpu_ships
 
 
- attack
- display @hitting
+ # attack
+ # display @hitting
 # attack
 # display @hitting
 # attack
 # display @hitting
 # attack
 # display @hitting
+puts "Would you like to play battleship?"
+ans1 = gets.chomp!
+if ans1 == "yes"
+  boat_placement
 
+  # puts "Now where would you like to place your ships?"
+  # display @my_ships
+  # placement1 = gets.chomp!
+  # add code
+  while @checker
+    display @hitting
+    attack
+    checker
+  end
+
+  
+else
+  puts "get outta here"
+end

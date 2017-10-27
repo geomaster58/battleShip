@@ -19,9 +19,9 @@
   def attack
     puts "Where would you like to attack?"
     gun = gets.chomp!
-    column = (gun.downcase.split"")[0].to_sym
-    row = (gun.split"")[1].to_i
-    bullet = @enemy_ships[column][row]
+    row = (gun.downcase.split"")[0].to_sym
+    column = (gun.split"")[1].to_i
+    bullet = @enemy_ships[row][column-1]
 
     case bullet
       when 0
@@ -51,3 +51,5 @@ end
 display @enemy_ships
 
 attack
+
+display @enemy_ships

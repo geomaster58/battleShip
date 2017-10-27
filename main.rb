@@ -23,17 +23,17 @@
     row = (gun.split"")[1].to_i
     bullet = @enemy_ships[column][row]
 
-
-    if bullet == 0
-      puts "SPLOOSH"
-    elsif bullet == 1
-      puts "THATS A HIT!"
-    elsif bullet == 2
-      puts "We've already hit them there Captain"
-    elsif bullet == 3
-      puts "We didnt hit anything there last time Captain. Are you ok?"
-    else
-      puts "That didnt make any sense. Give me a letter then a number without a space"
+    case bullet
+      when 0
+        puts "SPLOOSH"
+      when 1
+        puts "THATS A HIT!"
+      when 2
+        puts "We've already hit them there Captain"
+      when 3
+        puts "We didnt hit anything there last time Captain. Are you ok?"
+      else
+        puts "That didnt make any sense. Give me a letter then a number without a space"
       attack
     end
 

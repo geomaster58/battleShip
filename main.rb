@@ -1,5 +1,5 @@
 
-@enemy_ships =
+@cpu_ships =
   {
     a: [0,0,0,0,0],
     b: [0,0,0,0,0],
@@ -35,7 +35,7 @@
 
     row = (gun.downcase.split"")[0].to_sym
     column = (gun.split"")[1].to_i
-    bullet = @enemy_ships[row][column-1]
+    bullet = @cpu_ships[row][column-1]
 
     
       if bullet.zero?

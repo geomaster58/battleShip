@@ -1,12 +1,7 @@
+
 require 'pry'
 
-@grid_data = {
-  a: [0,0,0,0,0],
-  b: [0,0,0,0,0],
-  c: [0,0,0,0,0],
-  d: [0,0,0,0,0],
-  e: [0,0,0,0,0],
-  }
+
 
 
 # cpu_ships[:d][0] = 1
@@ -24,19 +19,21 @@ require 'pry'
   d: [0,0,0,0,0],
   e: [0,0,0,0,0],
 }
-@enemy_ships =
+
+@my_ships =
   {
     a: [0,0,0,0,0],
     b: [0,0,0,0,0],
     c: [0,0,0,0,0],
-    d: [0,0,1,1,1],
+    d: [0,0,0,0,0],
     e: [0,0,0,0,0],
   }
-@my_ships =
+
+  @hitting = 
   {
-    a: [1,0,0,0,0],
-    b: [1,0,0,0,0],
-    c: [1,0,0,0,0],
+    a: [0,0,0,0,0],
+    b: [0,0,0,0,0],
+    c: [0,0,0,0,0],
     d: [0,0,0,0,0],
     e: [0,0,0,0,0],
   }
@@ -46,28 +43,26 @@ require 'pry'
     puts "Where would you like to attack?"
     gun = gets.chomp!
 
-    if gun =~ /[a-jA-J]\d/
-      p gun
-    else
-      puts "That didnt make any sense Cap'n! I need a letter then a number"
-      attack
-    end
+    
 
     row = (gun.downcase.split"")[0].to_sym
     column = (gun.split"")[1].to_i
-    bullet = @enemy_ships[row][column-1]
+    bullet = @cpu_ships[row][column-1]
 
-    case bullet
-      when 0
+    
+      if bullet.zero?
         puts "SPLOOSH"
-      when 1
+        @hitting[row][column-1] = "-"
+      else 
         puts "THATS A HIT!"
-      when 2
-        puts "We've already hit them there Captain"
-      when 3
-        puts "We didnt hit anything there last time Captain. Are you ok?"
-    end
-end
+
+        @hitting[row][column-1] = "x"
+      end
+
+  end
+
+      
+
 
 
 def horizontal?
@@ -85,7 +80,6 @@ def cpu_target type_number
   @location = [letter, index_arr] 
 
   if @horizontal
-    #we run into risk of overlapping grid horixontally.  We need to check and see if a space is available next to it, and we have sufficient room to place our ship.  If we don't have sufficient space, do not place, and we will get a new location .
     index_arr == 4 ? index_arr -= 1 : index_arr
       
       if @cpu_ships[letter][index_arr].zero? && @cpu_ships[letter][index_arr + 1].zero?
@@ -110,7 +104,6 @@ def cpu_target type_number
       @cpu_ships[letter][index_arr] = type_number
       @cpu_ships[row_down][index_arr] = type_number
     end
-    #we run into risk of overlapping grid vertically.  We need to check and see if a space is available next to it, and we have sufficient room to place our ship.  If we don't have sufficient space, do not place, and we will get a new location .
   end
 end
 
@@ -148,9 +141,20 @@ boat_placement
 # display grid_data
 display @enemy_ships
 
-attack
+def checker
+ @hitting.values.include?("x"*3)
+end
+
+display @hitting
+
 
 display @enemy_ships
 
-
-
+attack
+display @hitting
+attack
+display @hitting
+attack
+display @hitting
+attack
+display @hitting

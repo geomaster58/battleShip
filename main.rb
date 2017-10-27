@@ -13,6 +13,7 @@ require 'pry'
 # p grid_data[:d][0]
 
 
+
 # 5 ships as follows: the aircraft carrier (size: 5 cells), the battleship (4 cells), the Submarine (3 cells), the Destroyer (3 cells) and the patrol boat (2 cells)
 
 def patrol_boat 
@@ -23,3 +24,12 @@ def patrol_boat
 end
 patrol_boat
 
+def display grid_data
+  puts "  " + ((1..5).to_a.join(" "))
+  grid_data.each do |key, array|
+    puts key.to_s + " " + (array.join(" "))
+  end
+end
+
+
+display grid_data

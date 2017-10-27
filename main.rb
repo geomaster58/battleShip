@@ -30,6 +30,9 @@
   def attack
     puts "Where would you like to attack?"
     gun = gets.chomp!
+
+    
+
     row = (gun.downcase.split"")[0].to_sym
     column = (gun.split"")[1].to_i
     bullet = @enemy_ships[row][column-1]
@@ -40,10 +43,14 @@
         @hitting[row][column-1] = "-"
       else 
         puts "THATS A HIT!"
+
         @hitting[row][column-1] = "x"
       end
 
   end
+
+      
+
 
 
 

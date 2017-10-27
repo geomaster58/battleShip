@@ -1,2 +1,14 @@
-include "grid"
-include "comp"
+grid_data = 
+  {
+  a: [0,0,0,0,0],
+  b: [0,0,0,0,0],
+  c: [0,0,0,0,0],
+  d: [0,0,1,0,0],
+  e: [0,0,0,0,0],
+  }
+
+grid_data[:d][0] = 1
+
+p grid_data[:d][0]
+
+

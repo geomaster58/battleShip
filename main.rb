@@ -46,7 +46,7 @@ require 'pry'
   }
 
   @checker = true
-
+  @comp_check = true
 
   def attack
     puts "Where would you like to attack?"
@@ -167,11 +167,18 @@ end
 # display grid_data
 #
 
-def checker 
+def checker grid
   length = [] 
-  @hitting.each {|key, arr| arr.each {|x| length << x if x =="x"}}
+  grid.each {|key, arr| arr.each {|x| length << x if x =="x"}}
 
   length.length == 2 ? @checker= false : @checker = true
+end
+
+def checker_comp grid
+  length = [] 
+  grid.each {|key, arr| arr.each {|x| length << x if x =="x"}}
+
+  length.length == 2 ? @comp_check= false : @comp_check = true
 end
 
 
@@ -202,11 +209,16 @@ if ans1 == "yes"
   # display @my_ships
   # placement1 = gets.chomp!
   # add code
-  while @checker
+  while @checker && @comp_check
+    puts "Your shots"
     display @hitting
     attack
-    checker
+    cpu_attack
+    puts "Computer shots on you"
+    checker @hitting
+    checker_comp @hit_me
   end
+  puts "YOU WIN!!"
 
   
 else

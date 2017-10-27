@@ -9,6 +9,11 @@ grid_data =
 
 grid_data[:d][0] = 1
 
-p grid_data[:d][0]
+def display grid_data
+  puts "  " + ((1..5).to_a.join(" "))
+  grid_data.each do |key, array|
+    puts key.to_s + " " + (array.join(" "))
+  end
+end
 
-
+display grid_data

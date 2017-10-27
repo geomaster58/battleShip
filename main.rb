@@ -86,7 +86,12 @@ require 'pry'
     bullet = @my_ships[row][column]
 
 
-      if bullet.zero?
+
+      destruction = @hit_me[row][column]
+      if destruction == "x"
+        puts "hmmm..."
+        sleep(1)
+      elsif bullet.zero?
         puts "SPLOOSH"
         puts "You survive..for now"
         @hit_me[row][column] = "-"
@@ -213,13 +218,13 @@ if ans1 == "yes"
     puts "Your shots"
     display @hitting
     attack
-    cpu_attack
     puts "Computer shots on you"
+    cpu_attack
     checker @hitting
     checker_comp @hit_me
   end
-  puts "YOU WIN!!"
-
+  puts "YOU WIN!!" if @comp_check
+  puts "YOU LOSE!!" if @checker
   
 else
   puts "get outta here"

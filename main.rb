@@ -1,2 +1,53 @@
-include "grid"
-include "comp"
+@enemy_ships =
+  {
+    a: [0,0,0,0,0],
+    b: [0,0,0,0,0],
+    c: [0,0,0,0,0],
+    d: [0,0,1,1,1],
+    e: [0,0,0,0,0],
+  }
+@my_ships =
+  {
+    a: [1,0,0,0,0],
+    b: [1,0,0,0,0],
+    c: [1,0,0,0,0],
+    d: [0,0,0,0,0],
+    e: [0,0,0,0,0],
+  }
+
+
+  def attack
+    puts "Where would you like to attack?"
+    gun = gets.chomp!
+    column = (gun.downcase.split"")[0].to_sym
+    row = (gun.split"")[1].to_i
+    bullet = @enemy_ships[column][row]
+
+
+    if bullet == 0
+      puts "SPLOOSH"
+    elsif bullet == 1
+      puts "THATS A HIT!"
+    elsif bullet == 2
+      puts "We've already hit them there Captain"
+    elsif bullet == 3
+      puts "We didnt hit anything there last time Captain. Are you ok?"
+    else
+      puts "That didnt make any sense. Give me a letter then a number without a space"
+      attack
+    end
+
+  end
+
+
+
+def display grid_data
+  puts "  " + ((1..5).to_a.join(" "))
+  grid_data.each do |key, array|
+    puts key.to_s + " " + (array.join(" "))
+  end
+end
+
+display @enemy_ships
+
+attack
